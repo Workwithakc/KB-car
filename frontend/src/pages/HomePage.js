@@ -111,9 +111,16 @@ const HomePage = () => {
 
       {/* Footer */}
       <footer className="bg-gray-100 py-8 px-4 mt-16">
-        <div className="max-w-4xl mx-auto text-center text-gray-600">
-          <p className="mb-2">KB Car Clinic - Multi Brand Car Service & Repair Center</p>
-          <p className="text-sm">Available across India • 24/7 Support</p>
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-4">
+            <p className="font-bold text-gray-900 mb-1">KB Car Clinic</p>
+            <p className="text-sm text-gray-600">Multi Brand Car Service & Repair Center</p>
+          </div>
+          <div className="text-gray-600 space-y-1">
+            <p className="text-sm">📞 8140 900 112 • 8140 900 114</p>
+            <p className="text-sm">✉️ kbcarclinic@gmail.com</p>
+            <p className="text-sm">📍 Available across India • 24/7 Support</p>
+          </div>
         </div>
       </footer>
     </div>
