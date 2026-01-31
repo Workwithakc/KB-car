@@ -6,7 +6,7 @@ import os
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -27,44 +27,61 @@ api_router = APIRouter(prefix="/api")
 
 
 # Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
+class ServiceRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
+    name: str
+    phone: str
+    whatsapp: Optional[str] = None
+    vehicleType: str
+    brand: str
+    model: Optional[str] = None
+    selectedIssues: List[str]
+    location: str
+    urgency: str
+    status: str = "new"
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+class ServiceRequestCreate(BaseModel):
+    name: str
+    phone: str
+    whatsapp: Optional[str] = None
+    vehicleType: str
+    brand: str
+    model: Optional[str] = None
+    selectedIssues: List[str]
+    location: str
+    urgency: str
 
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "KB Car Clinic API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
+@api_router.post("/service-requests", response_model=ServiceRequest)
+async def create_service_request(input: ServiceRequestCreate):
+    request_dict = input.model_dump()
+    request_obj = ServiceRequest(**request_dict)
     
     # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
+    doc = request_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
     
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
+    _ = await db.service_requests.insert_one(doc)
+    return request_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
+@api_router.get("/service-requests", response_model=List[ServiceRequest])
+async def get_service_requests():
     # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+    requests = await db.service_requests.find({}, {"_id": 0}).to_list(1000)
     
     # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
+    for req in requests:
+        if isinstance(req.get('timestamp'), str):
+            req['timestamp'] = datetime.fromisoformat(req['timestamp'])
     
-    return status_checks
+    return requests
 
 # Include the router in the main app
 app.include_router(api_router)
