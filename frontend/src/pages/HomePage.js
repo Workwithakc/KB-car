@@ -1,22 +1,45 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Phone, Wrench, AlertCircle, MapPin } from 'lucide-react';
+import { Phone, Wrench, AlertCircle, MapPin, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useApp } from '@/context/AppContext';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { user } = useApp();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Header */}
       <header className="bg-blue-900 text-white py-6 px-4 shadow-lg">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-center gap-3">
-            <Wrench className="w-10 h-10 text-yellow-400" />
-            <div>
-              <h1 className="text-3xl font-bold">KB Car Clinic</h1>
-              <p className="text-sm text-blue-200">We Care for Your Car</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Wrench className="w-10 h-10 text-yellow-400" />
+              <div>
+                <h1 className="text-3xl font-bold">KB Car Clinic</h1>
+                <p className="text-sm text-blue-200">Complete Automotive Ecosystem</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              {user ? (
+                <Button
+                  onClick={() => navigate('/dashboard')}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold"
+                >
+                  <LayoutDashboard className="mr-2 w-5 h-5" />
+                  Dashboard
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => navigate('/login')}
+                  variant="outline"
+                  className="border-white text-white hover:bg-blue-800"
+                >
+                  Login
+                </Button>
+              )}
             </div>
           </div>
         </div>
