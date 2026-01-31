@@ -69,9 +69,7 @@ const AIDiagnosis = () => {
     );
   };
 
-  const analyzeSy
-
-mptoms = () => {
+  const analyzeSymptoms = () => {
     setAnalyzing(true);
     setTimeout(() => {
       // Simple matching logic
@@ -135,7 +133,7 @@ mptoms = () => {
             </Card>
 
             <Button
-              onClick={analyzeSy mptoms}
+              onClick={analyzeSymptoms}
               disabled={selectedSymptoms.length === 0 || analyzing}
               className="w-full h-14 text-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
             >
