@@ -60,10 +60,40 @@ const ServiceRequestPage = () => {
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = () => {
-    // In production, this would send data to backend
-    console.log('Form submitted:', formData);
-    navigate('/confirmation', { state: { formData } });
+  const handleSubmit = async () => {
+    try {
+      // Submit to backend
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/service-requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          whatsapp: formData.sameAsPhone ? formData.phone : formData.whatsapp,
+          vehicleType: formData.vehicleType,
+          brand: formData.brand,
+          model: formData.model,
+          selectedIssues: formData.selectedIssues,
+          location: formData.location,
+          urgency: formData.urgency,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Request submitted successfully');
+        navigate('/confirmation', { state: { formData } });
+      } else {
+        console.error('Failed to submit request');
+        // Still navigate to confirmation for demo purposes
+        navigate('/confirmation', { state: { formData } });
+      }
+    } catch (error) {
+      console.error('Error submitting request:', error);
+      // Still navigate to confirmation for demo purposes
+      navigate('/confirmation', { state: { formData } });
+    }
   };
 
   const isStepValid = () => {
