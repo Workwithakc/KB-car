@@ -29,7 +29,7 @@ const DashboardLayout = ({ children }) => {
     { icon: MapPin, label: 'Find Garages', path: '/dashboard/garages', badge: null },
     { icon: Package, label: 'Subscriptions', path: '/dashboard/subscriptions', badge: null },
     { icon: FileText, label: 'Documents', path: '/dashboard/documents', badge: null },
-    { icon: MessageSquare, label: 'Community', path: '/dashboard/community', badge: null },
+    { icon: MessageSquare, label: 'Articles', path: '/dashboard/articles', badge: null },
     { icon: Gift, label: 'Rewards', path: '/dashboard/rewards', badge: null },
     { icon: Settings, label: 'Settings', path: '/dashboard/settings', badge: null },
   ];
