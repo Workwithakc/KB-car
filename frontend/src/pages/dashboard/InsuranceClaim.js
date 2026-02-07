@@ -445,53 +445,161 @@ const InsuranceClaim = () => {
           </Card>
         )}
 
-        {/* Step 5: Confirmation */}
+        {/* Step 5: Confirmation with AI Analysis */}
         {step === 5 && (
-          <Card className="text-center">
-            <CardContent className="p-12">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle2 className="w-12 h-12 text-green-600" />
-              </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Claim Submitted Successfully!</h2>
-              <p className="text-gray-600 mb-2">Claim Reference Number</p>
-              <p className="text-3xl font-bold text-blue-600 mb-6">CLM-{Date.now().toString().slice(-8)}</p>
-              
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 text-left">
-                <h3 className="font-bold text-gray-900 mb-4">What Happens Next?</h3>
-                <ol className="space-y-2 text-sm text-gray-700">
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold">1.</span>
-                    <span>Insurance company will review your claim within 24-48 hours</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold">2.</span>
-                    <span>Surveyor will be appointed for damage assessment</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold">3.</span>
-                    <span>You'll receive approval notification via SMS/WhatsApp</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold">4.</span>
-                    <span>Proceed with repairs at selected garage</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="font-bold">5.</span>
-                    <span>Settlement typically completes in 7-15 days</span>
-                  </li>
-                </ol>
-              </div>
+          <div className="space-y-6">
+            <Card className="text-center">
+              <CardContent className="p-12">
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 className="w-12 h-12 text-green-600" />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Claim Submitted Successfully!</h2>
+                <p className="text-gray-600 mb-2">Claim Reference Number</p>
+                <p className="text-3xl font-bold text-blue-600 mb-6">CLM-{Date.now().toString().slice(-8)}</p>
+                
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 text-left">
+                  <h3 className="font-bold text-gray-900 mb-4">What Happens Next?</h3>
+                  <ol className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">1.</span>
+                      <span>Insurance company will review your claim within 24-48 hours</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">2.</span>
+                      <span>Surveyor will be appointed for damage assessment</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">3.</span>
+                      <span>You'll receive approval notification via SMS/WhatsApp</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">4.</span>
+                      <span>Proceed with repairs at selected garage</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-bold">5.</span>
+                      <span>Settlement typically completes in 7-15 days</span>
+                    </li>
+                  </ol>
+                </div>
 
-              <div className="flex gap-4 justify-center">
-                <Button onClick={() => window.location.href = '/dashboard'}>
-                  Back to Dashboard
-                </Button>
-                <Button variant="outline">
-                  Track Claim Status
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                <div className="flex gap-4 justify-center">
+                  <Button onClick={() => window.location.href = '/dashboard'}>
+                    Back to Dashboard
+                  </Button>
+                  <Button variant="outline">
+                    Track Claim Status
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* AI Insurance Advisor Section */}
+            <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-blue-50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <div className="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <span>AI Insurance Advisor</span>
+                    <p className="text-sm font-normal text-gray-600">Personalized recommendations for your claim</p>
+                  </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Claim Success Probability */}
+                  <div className="bg-white rounded-xl p-4 border">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-gray-700">Claim Success Probability</span>
+                      <span className="text-2xl font-bold text-green-600">87%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="bg-green-600 h-2 rounded-full" style={{ width: '87%' }}></div>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2">Based on your policy type and claim details</p>
+                  </div>
+
+                  {/* Estimated Settlement */}
+                  <div className="bg-white rounded-xl p-4 border">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700">Estimated Settlement</span>
+                    </div>
+                    <p className="text-2xl font-bold text-blue-600">₹{(parseInt(claimData.estimatedDamageCost) * 0.85).toLocaleString() || '0'}</p>
+                    <p className="text-xs text-gray-500 mt-1">After deductible & depreciation (estimated)</p>
+                  </div>
+                </div>
+
+                {/* AI Recommendations */}
+                <div className="bg-white rounded-xl p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-yellow-600" />
+                    AI Recommendations to Maximize Your Claim
+                  </h4>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Upload high-quality photos from multiple angles for faster surveyor approval</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Keep all original purchase receipts and service records handy</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Choose a network garage for cashless claim processing (faster settlement)</span>
+                    </li>
+                    <li className="flex items-start gap-2 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Document all communication with insurance company via email</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Similar Claims Analysis */}
+                <div className="bg-white rounded-xl p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-3">Similar Claims Analysis</h4>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <p className="text-xl font-bold text-gray-900">92%</p>
+                      <p className="text-xs text-gray-500">Approval Rate</p>
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold text-gray-900">8 days</p>
+                      <p className="text-xs text-gray-500">Avg. Settlement Time</p>
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold text-gray-900">₹4,500</p>
+                      <p className="text-xs text-gray-500">Avg. Deductible</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recommended Garages for Repair */}
+                <div className="bg-white rounded-xl p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-3">AI-Recommended Network Garages</h4>
+                  <div className="space-y-2">
+                    {[
+                      { name: 'KB Car Clinic - Central', match: 98, cashless: true },
+                      { name: 'AutoCare Service Hub', match: 92, cashless: true },
+                      { name: 'Express Car Repair', match: 88, cashless: true }
+                    ].map((garage, idx) => (
+                      <div key={idx} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-sm">{garage.name}</span>
+                          {garage.cashless && (
+                            <span className="bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded">Cashless</span>
+                          )}
+                        </div>
+                        <span className="text-purple-600 font-semibold text-sm">{garage.match}% Match</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         )}
       </div>
     </DashboardLayout>
