@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { MapPin, Navigation, Phone, Clock, Star, Filter, Search, Zap } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MapPin, Navigation, Phone, Clock, Star, Filter, Search, Zap, RefreshCw } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
