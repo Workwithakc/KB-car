@@ -1,34 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Phone, MessageCircle, MapPin, Clock, Star, CheckCircle2, Navigation, Home } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Clock, Star, CheckCircle2, Navigation, Home, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { getRandomGarages, getBestMatch } from '@/data/garages';
 
 const EmergencyResultScreen = () => {
   const navigate = useNavigate();
+  const [showAllGarages, setShowAllGarages] = useState(false);
+  const [bestGarage, setBestGarage] = useState(null);
+  const [otherGarages, setOtherGarages] = useState([]);
 
-  // Mock garage data - best match found by AI
-  const bestGarage = {
-    name: "KB Car Clinic - Central",
-    distance: "1.2 km",
-    estimatedTime: "5 mins",
-    status: "OPEN",
-    rating: 4.8,
-    phone: "8140900112",
-    address: "MG Road, City Center",
-    services: ["Emergency Support", "24/7 Available", "Towing Service"],
-    lastUpdated: "2 mins ago"
-  };
+  useEffect(() => {
+    // Get 4 random garages on component mount
+    const randomGarages = getRandomGarages(4);
+    setBestGarage(randomGarages[0]); // First one is best match
+    setOtherGarages(randomGarages.slice(1)); // Other 3 are alternatives
+  }, []);
 
   const handleCall = () => {
     window.location.href = `tel:${bestGarage.phone}`;
   };
 
-  const handleWhatsApp = () => {
-    const message = `🚨 EMERGENCY REQUEST\n\nI need immediate vehicle assistance!\n\nLocation: Near ${bestGarage.address}\n\nPlease respond ASAP.`;
-    window.open(`https://wa.me/91${bestGarage.phone}?text=${encodeURIComponent(message)}`, '_blank');
+  const handleWhatsApp = (garage) => {
+    const message = `🚨 EMERGENCY REQUEST\n\nI need immediate vehicle assistance!\n\nLocation: Near ${garage.address}\n\nPlease respond ASAP.`;
+    window.open(`https://wa.me/91${garage.phone}?text=${encodeURIComponent(message)}`, '_blank');
   };
+
+  if (!bestGarage) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-white">
@@ -118,6 +120,9 @@ const EmergencyResultScreen = () => {
                     </Badge>
                   ))}
                 </div>
+                <p className="text-sm text-gray-600 mt-2">
+                  Specialization: <span className="font-semibold">{bestGarage.specialization}</span>
+                </p>
               </div>
             </div>
 
@@ -129,11 +134,11 @@ const EmergencyResultScreen = () => {
                 data-testid="call-garage-button"
               >
                 <Phone className="mr-3 w-6 h-6" />
-                Call Garage Now
+                Call {bestGarage.name}
               </Button>
 
               <Button
-                onClick={handleWhatsApp}
+                onClick={() => handleWhatsApp(bestGarage)}
                 className="w-full h-16 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-xl font-bold shadow-lg"
                 data-testid="whatsapp-button"
               >
@@ -141,6 +146,75 @@ const EmergencyResultScreen = () => {
                 Send Emergency Request
               </Button>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Alternative Garages */}
+        <Card className="mb-6">
+          <CardContent className="p-6">
+            <button
+              onClick={() => setShowAllGarages(!showAllGarages)}
+              className="w-full flex items-center justify-between text-left"
+            >
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">Alternative Garages Nearby</h3>
+                <p className="text-sm text-gray-600">3 more options available</p>
+              </div>
+              {showAllGarages ? <ChevronUp className="w-6 h-6" /> : <ChevronDown className="w-6 h-6" />}
+            </button>
+
+            {showAllGarages && (
+              <div className="mt-6 space-y-4">
+                {otherGarages.map((garage) => (
+                  <Card key={garage.id} className="border-2 hover:border-blue-400 transition-all">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h4 className="font-bold text-gray-900 text-lg">{garage.name}</h4>
+                          <div className="flex items-center gap-3 mt-1 text-sm text-gray-600">
+                            <span className="flex items-center gap-1">
+                              <Navigation className="w-4 h-4 text-blue-600" />
+                              {garage.distance}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-4 h-4 text-purple-600" />
+                              {garage.estimatedTime}
+                            </span>
+                            <Badge className="bg-green-500">★ {garage.rating}</Badge>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+                        <MapPin className="w-4 h-4" />
+                        {garage.address}
+                      </div>
+                      <div className="text-sm text-gray-600 mb-3">
+                        {garage.specialization}
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={() => window.location.href = `tel:${garage.phone}`}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700"
+                          size="sm"
+                        >
+                          <Phone className="mr-2 w-4 h-4" />
+                          Call
+                        </Button>
+                        <Button
+                          onClick={() => handleWhatsApp(garage)}
+                          variant="outline"
+                          className="flex-1"
+                          size="sm"
+                        >
+                          <MessageCircle className="mr-2 w-4 h-4" />
+                          WhatsApp
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 
