@@ -4,8 +4,8 @@
 
 Your KB Car Clinic app is **LIVE and READY** at:
 ```
-Frontend: https://autohelp-connect.preview.emergentagent.com
-Backend API: https://autohelp-connect.preview.emergentagent.com/api
+Frontend: https://auto-care-7.preview.emergentagent.com
+Backend API: https://auto-care-7.preview.emergentagent.com/api
 ```
 
 ## 📱 How to Use
@@ -32,7 +32,7 @@ Backend API: https://autohelp-connect.preview.emergentagent.com/api
 
 Access the admin dashboard at:
 ```
-https://autohelp-connect.preview.emergentagent.com/admin
+https://auto-care-7.preview.emergentagent.com/admin
 ```
 
 Features:
@@ -46,7 +46,7 @@ Features:
 
 ### Base URL
 ```
-https://autohelp-connect.preview.emergentagent.com/api
+https://auto-care-7.preview.emergentagent.com/api
 ```
 
 ### Endpoints
@@ -183,7 +183,7 @@ Response: Array of all service requests
 
 ### Frontend
 ```bash
-REACT_APP_BACKEND_URL=https://autohelp-connect.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://auto-care-7.preview.emergentagent.com
 ```
 
 ### Backend
@@ -198,13 +198,13 @@ CORS_ORIGINS=*
 ### Test Service Request Flow
 ```bash
 # 1. Visit homepage
-curl https://autohelp-connect.preview.emergentagent.com
+curl https://auto-care-7.preview.emergentagent.com
 
 # 2. Test API
-curl https://autohelp-connect.preview.emergentagent.com/api/
+curl https://auto-care-7.preview.emergentagent.com/api/
 
 # 3. Create test request
-curl -X POST https://autohelp-connect.preview.emergentagent.com/api/service-requests \
+curl -X POST https://auto-care-7.preview.emergentagent.com/api/service-requests \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Test User",
@@ -218,7 +218,7 @@ curl -X POST https://autohelp-connect.preview.emergentagent.com/api/service-requ
   }'
 
 # 4. View all requests
-curl https://autohelp-connect.preview.emergentagent.com/api/service-requests
+curl https://auto-care-7.preview.emergentagent.com/api/service-requests
 ```
 
 ## 🚦 Service Status
