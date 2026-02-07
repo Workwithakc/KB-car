@@ -10,10 +10,19 @@ import DashboardLayout from '@/components/DashboardLayout';
 import { allGarages } from '@/data/garages';
 
 const FindGarages = () => {
+  const navigate = useNavigate();
   const [selectedGarage, setSelectedGarage] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('distance');
+  const [isLoading, setIsLoading] = useState(true);
+  const [userLocation, setUserLocation] = useState({ lat: 23.0225, lng: 72.5714 }); // Ahmedabad coords
+
+  // Simulate loading the map
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Add open/closed status to garages (randomly for demo)
   const garagesWithStatus = allGarages.map((garage, idx) => ({
