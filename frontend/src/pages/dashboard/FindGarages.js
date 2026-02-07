@@ -77,8 +77,6 @@ const FindGarages = () => {
             AI Powered
           </Badge>
         </div>
-          <p className="text-gray-600 mt-1">Locate garages near you with real-time availability</p>
-        </div>
 
         {/* Stats Bar */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
