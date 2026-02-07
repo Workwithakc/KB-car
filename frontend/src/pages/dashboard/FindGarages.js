@@ -363,8 +363,12 @@ const FindGarages = () => {
                       <div className="mt-3 flex gap-2">
                         <Button 
                           size="sm" 
-                          className="flex-1 h-8 text-xs"
-                          onClick={() => window.location.href = `tel:${garage.phone}`}
+                          className="flex-1 h-8 text-xs bg-blue-600 hover:bg-blue-700"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.location.href = `tel:${garage.phone}`;
+                          }}
+                          data-testid={`call-garage-${garage.id}`}
                         >
                           <Phone className="w-3 h-3 mr-1" />
                           Call
@@ -373,7 +377,11 @@ const FindGarages = () => {
                           size="sm" 
                           variant="outline"
                           className="flex-1 h-8 text-xs"
-                          onClick={() => navigate(`/dashboard/booking`)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate('/dashboard/booking');
+                          }}
+                          data-testid={`book-garage-${garage.id}`}
                         >
                           Book
                         </Button>
