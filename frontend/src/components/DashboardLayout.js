@@ -4,7 +4,7 @@ import {
   Home, Car, ShoppingCart, Calendar, History, FileText, 
   MessageSquare, Gift, Settings, Bell, Menu, X, LogOut, 
   Wrench, Package, TrendingUp, Users, AlertCircle, Video,
-  Calculator, Award, MapPin
+  Calculator, Award, MapPin, Brain, Crown, Shield
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,15 +20,17 @@ const DashboardLayout = ({ children }) => {
     { icon: Home, label: 'Dashboard', path: '/dashboard', badge: null },
     { icon: Car, label: 'My Garage', path: '/dashboard/garage', badge: null },
     { icon: Calendar, label: 'Book Service', path: '/dashboard/booking', badge: null },
+    { icon: Brain, label: 'AI Smart Calculator', path: '/dashboard/ai-calculator', badge: 'AI' },
+    { icon: MapPin, label: 'Find Garages', path: '/dashboard/garages', badge: 'AI' },
     { icon: ShoppingCart, label: 'Parts Store', path: '/dashboard/parts', badge: 'New' },
     { icon: TrendingUp, label: 'Price Compare', path: '/dashboard/compare', badge: null },
     { icon: AlertCircle, label: 'AI Diagnosis', path: '/dashboard/diagnosis', badge: 'AI' },
     { icon: History, label: 'Service History', path: '/dashboard/history', badge: null },
     { icon: Video, label: 'Video Consult', path: '/dashboard/consult', badge: null },
     { icon: Calculator, label: 'Cost Calculator', path: '/dashboard/calculator', badge: null },
-    { icon: MapPin, label: 'Find Garages', path: '/dashboard/garages', badge: null },
-    { icon: Package, label: 'Subscriptions', path: '/dashboard/subscriptions', badge: null },
+    { icon: Shield, label: 'Insurance Claim', path: '/dashboard/insurance-claim', badge: 'AI' },
     { icon: FileText, label: 'Documents', path: '/dashboard/documents', badge: null },
+    { icon: Crown, label: 'Subscriptions', path: '/dashboard/subscriptions', badge: 'Pro' },
     { icon: MessageSquare, label: 'Articles', path: '/dashboard/articles', badge: null },
     { icon: Gift, label: 'Rewards', path: '/dashboard/rewards', badge: null },
     { icon: Settings, label: 'Settings', path: '/dashboard/settings', badge: null },
