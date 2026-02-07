@@ -61,7 +61,7 @@ const GarageSathi = () => {
     // Emergency detection
     if (msg.includes('emergency') || msg.includes('urgent') || msg.includes('help') || msg.includes('stuck') || msg.includes('breakdown')) {
       return {
-        text: '🚨 EMERGENCY DETECTED! I\'m finding the nearest available garage for you right now...\n\n📍 KB Car Clinic - Central (1.2 km away, OPEN NOW)\n📞 Call: 8140900112\n\nShould I redirect you to emergency page?',
+        text: '🚨 EMERGENCY DETECTED! I\'m activating our AI-powered garage finder right now!\n\n✨ Our AI will:\n• Detect your location\n• Find nearby open garages\n• Check real-time availability\n• Match you with the best option\n\nShall I start the AI search?',
         action: 'emergency'
       };
     }
@@ -152,7 +152,7 @@ const GarageSathi = () => {
   const handleQuickAction = (action) => {
     switch (action) {
       case 'emergency':
-        navigate('/emergency');
+        navigate('/emergency-ai');
         setIsOpen(false);
         break;
       case 'booking':
