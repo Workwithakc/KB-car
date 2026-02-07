@@ -24,6 +24,7 @@ import VideoConsult from "./pages/dashboard/VideoConsult";
 import Settings from "./pages/dashboard/Settings";
 import Documents from "./pages/dashboard/Documents";
 import InsuranceClaim from "./pages/dashboard/InsuranceClaim";
+import FindGarages from "./pages/dashboard/FindGarages";
 
 function AppContent() {
   const location = useLocation();
@@ -62,6 +63,7 @@ function AppContent() {
         <Route path="/dashboard/settings" element={<Settings />} />
         <Route path="/dashboard/documents" element={<Documents />} />
         <Route path="/dashboard/insurance-claim" element={<InsuranceClaim />} />
+        <Route path="/dashboard/garages" element={<FindGarages />} />
         
         {/* Placeholder routes for other dashboard pages */}
         <Route path="/dashboard/*" element={<MainDashboard />} />
