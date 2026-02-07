@@ -75,6 +75,31 @@ const MainDashboard = () => {
           </Button>
         </div>
 
+        {/* EMERGENCY SOS BANNER - PROMINENT */}
+        <Card className="border-4 border-red-500 bg-gradient-to-r from-red-50 to-orange-50">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center animate-pulse">
+                  <AlertTriangle className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-red-900 mb-1">Need Emergency Help?</h3>
+                  <p className="text-red-700">AI will find nearest open garage in seconds</p>
+                </div>
+              </div>
+              <Button 
+                onClick={() => navigate('/emergency-ai')}
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 h-14 px-8 text-lg font-bold"
+                data-testid="emergency-sos-banner"
+              >
+                <AlertTriangle className="mr-2 w-5 h-5" />
+                Get Emergency Help
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card>
