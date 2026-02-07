@@ -139,7 +139,7 @@ const FindGarages = () => {
         {/* Search & Filter Bar */}
         <Card>
           <CardContent className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <Input
@@ -159,13 +159,32 @@ const FindGarages = () => {
                   <SelectItem value="closed">Closed</SelectItem>
                 </SelectContent>
               </Select>
+              <Select value={priceFilter} onValueChange={setPriceFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Price Range" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Prices</SelectItem>
+                  <SelectItem value="budget">Budget Friendly</SelectItem>
+                  <SelectItem value="mid-range">Mid-Range</SelectItem>
+                  <SelectItem value="premium">Premium</SelectItem>
+                </SelectContent>
+              </Select>
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="ai-recommended">
+                    <span className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-purple-600" />
+                      AI Recommended
+                    </span>
+                  </SelectItem>
                   <SelectItem value="distance">Nearest First</SelectItem>
                   <SelectItem value="rating">Highest Rated</SelectItem>
+                  <SelectItem value="price-low">Price: Low to High</SelectItem>
+                  <SelectItem value="price-high">Price: High to Low</SelectItem>
                 </SelectContent>
               </Select>
             </div>
