@@ -21,6 +21,9 @@ import PriceCompare from "./pages/dashboard/PriceCompare";
 import ServiceHistory from "./pages/dashboard/ServiceHistory";
 import CostCalculator from "./pages/dashboard/CostCalculator";
 import VideoConsult from "./pages/dashboard/VideoConsult";
+import Settings from "./pages/dashboard/Settings";
+import Documents from "./pages/dashboard/Documents";
+import InsuranceClaim from "./pages/dashboard/InsuranceClaim";
 
 function AppContent() {
   const location = useLocation();
@@ -56,6 +59,9 @@ function AppContent() {
         <Route path="/dashboard/history" element={<ServiceHistory />} />
         <Route path="/dashboard/calculator" element={<CostCalculator />} />
         <Route path="/dashboard/consult" element={<VideoConsult />} />
+        <Route path="/dashboard/settings" element={<Settings />} />
+        <Route path="/dashboard/documents" element={<Documents />} />
+        <Route path="/dashboard/insurance-claim" element={<InsuranceClaim />} />
         
         {/* Placeholder routes for other dashboard pages */}
         <Route path="/dashboard/*" element={<MainDashboard />} />
