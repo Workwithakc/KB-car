@@ -369,24 +369,58 @@ const FindGarages = () => {
 
           {/* Garage List */}
           <div className="space-y-4">
-            <h2 className="text-xl font-bold text-gray-900">
-              {filteredGarages.length} Garages Found
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold text-gray-900">
+                {filteredGarages.length} Garages Found
+              </h2>
+              {sortBy === 'ai-recommended' && (
+                <Badge className="bg-purple-100 text-purple-700">
+                  <Sparkles className="w-3 h-3 mr-1" />
+                  AI Sorted
+                </Badge>
+              )}
+            </div>
             <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
-              {filteredGarages.map((garage) => {
+              {filteredGarages.map((garage, idx) => {
                 const isSelected = selectedGarage?.id === garage.id;
+                const isTopPick = idx === 0 && sortBy === 'ai-recommended';
                 return (
                   <Card
                     key={garage.id}
                     className={`cursor-pointer transition-all hover:shadow-lg ${
                       isSelected ? 'ring-2 ring-blue-600 shadow-xl' : ''
-                    }`}
+                    } ${isTopPick ? 'border-2 border-purple-400 bg-purple-50' : ''}`}
                     onClick={() => setSelectedGarage(garage)}
                   >
                     <CardContent className="p-4">
+                      {/* AI Score & Top Pick Badge */}
+                      {isTopPick && (
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge className="bg-purple-600 text-white">
+                            <Award className="w-3 h-3 mr-1" />
+                            AI Top Pick
+                          </Badge>
+                          <Badge variant="outline" className="border-purple-400 text-purple-700">
+                            {garage.aiScore}% Match
+                          </Badge>
+                        </div>
+                      )}
+                      
                       <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-bold text-gray-900 text-sm">{garage.name}</h3>
-                        <Badge className={garage.isOpen ? 'bg-green-500 animate-pulse' : 'bg-red-500'}>
+                        <div>
+                          <h3 className="font-bold text-gray-900 text-sm">{garage.name}</h3>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Badge variant="outline" className={`text-[10px] ${
+                              garage.priceCategory === 'Budget' ? 'border-green-500 text-green-700' :
+                              garage.priceCategory === 'Premium' ? 'border-purple-500 text-purple-700' :
+                              'border-blue-500 text-blue-700'
+                            }`}>
+                              {garage.priceCategory}
+                            </Badge>
+                            <span className="text-[10px] text-gray-500">Avg: ₹{garage.avgServiceCost}</span>
+                          </div>
+                        </div>
+                        <Badge className={garage.isOpen ? 'bg-green-500' : 'bg-red-500'}>
                           {garage.isOpen ? 'OPEN' : 'CLOSED'}
                         </Badge>
                       </div>
@@ -396,17 +430,69 @@ const FindGarages = () => {
                           <Navigation className="w-3 h-3 text-blue-600" />
                           <span className="font-semibold text-blue-600">{garage.distance}</span>
                           <span>• {garage.estimatedTime}</span>
+                          <span>• {garage.responseTime}</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                           <span className="font-semibold">{garage.rating}</span>
-                          <span>• {garage.specialization}</span>
+                          <span className="text-gray-400">({garage.reviewCount} reviews)</span>
                         </div>
+                        
+                        {/* AI Summary */}
+                        <div className="bg-gray-50 rounded-lg p-2 mt-2">
+                          <div className="flex items-start gap-2">
+                            <Brain className="w-3 h-3 text-purple-600 mt-0.5 flex-shrink-0" />
+                            <p className="text-[10px] text-gray-600 leading-relaxed">{garage.aiSummary}</p>
+                          </div>
+                        </div>
+                        
+                        {/* Customer Sentiment */}
                         <div className="flex items-center gap-2">
-                          <MapPin className="w-3 h-3" />
-                          <span>{garage.address}</span>
+                          <ThumbsUp className="w-3 h-3 text-green-600" />
+                          <span className="text-green-600 font-medium">{garage.customerSentiment}</span>
+                          <span className="text-gray-400">sentiment</span>
                         </div>
                       </div>
+
+                      {/* AI Reviews Toggle */}
+                      <button 
+                        className="w-full text-left mt-3 text-xs text-purple-600 hover:text-purple-700 flex items-center gap-1"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowAIReviews(showAIReviews === garage.id ? null : garage.id);
+                        }}
+                      >
+                        <MessageSquare className="w-3 h-3" />
+                        {showAIReviews === garage.id ? 'Hide' : 'View'} AI-analyzed reviews
+                      </button>
+                      
+                      {/* AI Reviews Section */}
+                      {showAIReviews === garage.id && (
+                        <div className="mt-3 space-y-2 border-t pt-3">
+                          <div className="text-[10px] font-semibold text-purple-600 flex items-center gap-1">
+                            <Sparkles className="w-3 h-3" />
+                            AI-Analyzed Top Reviews
+                          </div>
+                          {garage.topReviews.map((review, i) => (
+                            <div key={i} className="bg-gray-50 rounded-lg p-2">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-medium text-[10px]">{review.user}</span>
+                                <div className="flex items-center gap-1">
+                                  {[...Array(review.rating)].map((_, j) => (
+                                    <Star key={j} className="w-2 h-2 fill-yellow-400 text-yellow-400" />
+                                  ))}
+                                </div>
+                              </div>
+                              <p className="text-[10px] text-gray-600">"{review.text}"</p>
+                              <Badge variant="outline" className={`text-[8px] mt-1 ${
+                                review.sentiment === 'positive' ? 'border-green-400 text-green-600' : 'border-yellow-400 text-yellow-600'
+                              }`}>
+                                {review.sentiment}
+                              </Badge>
+                            </div>
+                          ))}
+                        </div>
+                      )}
 
                       <div className="mt-3 flex gap-2">
                         <Button 
