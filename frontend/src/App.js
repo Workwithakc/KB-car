@@ -53,7 +53,7 @@ function App() {
           </Routes>
           
           {/* Global AI Assistant - appears on all pages except AI processing screens */}
-          <GarageSathi />
+          {!location.pathname.includes('/emergency-ai') && !location.pathname.includes('/emergency-result') && <GarageSathi />}
         </BrowserRouter>
       </div>
     </AppProvider>
