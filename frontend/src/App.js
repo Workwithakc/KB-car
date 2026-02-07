@@ -1,5 +1,5 @@
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
 import GarageSathi from "./components/GarageSathi";
 import HomePage from "./pages/HomePage";
@@ -18,42 +18,53 @@ import AIDiagnosis from "./pages/dashboard/AIDiagnosis";
 import ArticlesPage from "./pages/dashboard/ArticlesPage";
 import ArticleDetail from "./pages/dashboard/ArticleDetail";
 
+function AppContent() {
+  const location = useLocation();
+  const hideAI = location.pathname.includes('/emergency-ai') || location.pathname.includes('/emergency-result');
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        
+        {/* AI Emergency Flow - NEW HACKATHON FEATURE */}
+        <Route path="/emergency-ai" element={<AIProcessingScreen />} />
+        <Route path="/emergency-result" element={<EmergencyResultScreen />} />
+        
+        {/* Original Emergency */}
+        <Route path="/emergency" element={<EmergencyPage />} />
+        
+        <Route path="/service-request" element={<ServiceRequestPage />} />
+        <Route path="/confirmation" element={<ConfirmationPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        
+        {/* Dashboard Routes */}
+        <Route path="/dashboard" element={<MainDashboard />} />
+        <Route path="/dashboard/garage" element={<MyGarage />} />
+        <Route path="/dashboard/booking" element={<BookService />} />
+        <Route path="/dashboard/parts" element={<PartsStore />} />
+        <Route path="/dashboard/diagnosis" element={<AIDiagnosis />} />
+        <Route path="/dashboard/community" element={<ArticlesPage />} />
+        <Route path="/dashboard/articles" element={<ArticlesPage />} />
+        <Route path="/dashboard/articles/:id" element={<ArticleDetail />} />
+        
+        {/* Placeholder routes for other dashboard pages */}
+        <Route path="/dashboard/*" element={<MainDashboard />} />
+      </Routes>
+      
+      {/* Global AI Assistant - hide on AI processing screens */}
+      {!hideAI && <GarageSathi />}
+    </>
+  );
+}
+
 function App() {
   return (
     <AppProvider>
       <div className="App">
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            
-            {/* AI Emergency Flow - NEW HACKATHON FEATURE */}
-            <Route path="/emergency-ai" element={<AIProcessingScreen />} />
-            <Route path="/emergency-result" element={<EmergencyResultScreen />} />
-            
-            {/* Original Emergency */}
-            <Route path="/emergency" element={<EmergencyPage />} />
-            
-            <Route path="/service-request" element={<ServiceRequestPage />} />
-            <Route path="/confirmation" element={<ConfirmationPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            
-            {/* Dashboard Routes */}
-            <Route path="/dashboard" element={<MainDashboard />} />
-            <Route path="/dashboard/garage" element={<MyGarage />} />
-            <Route path="/dashboard/booking" element={<BookService />} />
-            <Route path="/dashboard/parts" element={<PartsStore />} />
-            <Route path="/dashboard/diagnosis" element={<AIDiagnosis />} />
-            <Route path="/dashboard/community" element={<ArticlesPage />} />
-            <Route path="/dashboard/articles" element={<ArticlesPage />} />
-            <Route path="/dashboard/articles/:id" element={<ArticleDetail />} />
-            
-            {/* Placeholder routes for other dashboard pages */}
-            <Route path="/dashboard/*" element={<MainDashboard />} />
-          </Routes>
-          
-          {/* Global AI Assistant - appears on all pages except AI processing screens */}
-          {!location.pathname.includes('/emergency-ai') && !location.pathname.includes('/emergency-result') && <GarageSathi />}
+          <AppContent />
         </BrowserRouter>
       </div>
     </AppProvider>
