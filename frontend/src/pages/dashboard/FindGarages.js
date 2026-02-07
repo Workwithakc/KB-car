@@ -399,27 +399,34 @@ const FindGarages = () => {
           @keyframes fadeIn {
             from {
               opacity: 0;
-              transform: translateY(-10px);
+              transform: translateX(-50%) translateY(-5px);
             }
             to {
+              opacity: 1;
+              transform: translateX(-50%) translateY(0);
+            }
+          }
+
+          @keyframes markerDrop {
+            0% {
+              opacity: 0;
+              transform: translateY(-20px);
+            }
+            60% {
+              transform: translateY(5px);
+            }
+            100% {
               opacity: 1;
               transform: translateY(0);
             }
           }
 
-          @keyframes ping-slow {
-            75%, 100% {
-              transform: scale(2);
-              opacity: 0;
-            }
-          }
-
           .animate-fadeIn {
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.2s ease-out forwards;
           }
 
-          .animate-ping-slow {
-            animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+          .animate-markerDrop {
+            animation: markerDrop 0.4s ease-out forwards;
           }
         `}</style>
       </div>
