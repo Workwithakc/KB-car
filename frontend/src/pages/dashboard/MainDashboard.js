@@ -39,7 +39,7 @@ const MainDashboard = () => {
 
   const quickActions = [
     { icon: Calendar, label: 'Book Service', path: '/dashboard/booking', color: 'bg-blue-500' },
-    { icon: AlertTriangle, label: 'Emergency SOS', path: '/emergency', color: 'bg-red-500' },
+    { icon: AlertTriangle, label: 'Emergency SOS', path: '/emergency-ai', color: 'bg-red-500' },
     { icon: ShoppingCart, label: 'Buy Parts', path: '/dashboard/parts', color: 'bg-green-500' },
     { icon: TrendingUp, label: 'Compare Prices', path: '/dashboard/compare', color: 'bg-purple-500' },
   ];
