@@ -17,6 +17,10 @@ import PartsStore from "./pages/dashboard/PartsStore";
 import AIDiagnosis from "./pages/dashboard/AIDiagnosis";
 import ArticlesPage from "./pages/dashboard/ArticlesPage";
 import ArticleDetail from "./pages/dashboard/ArticleDetail";
+import PriceCompare from "./pages/dashboard/PriceCompare";
+import ServiceHistory from "./pages/dashboard/ServiceHistory";
+import CostCalculator from "./pages/dashboard/CostCalculator";
+import VideoConsult from "./pages/dashboard/VideoConsult";
 
 function AppContent() {
   const location = useLocation();
@@ -48,6 +52,10 @@ function AppContent() {
         <Route path="/dashboard/community" element={<ArticlesPage />} />
         <Route path="/dashboard/articles" element={<ArticlesPage />} />
         <Route path="/dashboard/articles/:id" element={<ArticleDetail />} />
+        <Route path="/dashboard/compare" element={<PriceCompare />} />
+        <Route path="/dashboard/history" element={<ServiceHistory />} />
+        <Route path="/dashboard/calculator" element={<CostCalculator />} />
+        <Route path="/dashboard/consult" element={<VideoConsult />} />
         
         {/* Placeholder routes for other dashboard pages */}
         <Route path="/dashboard/*" element={<MainDashboard />} />
