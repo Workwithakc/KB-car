@@ -47,6 +47,26 @@ const HomePage = () => {
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-12">
+        {/* HERO EMERGENCY BUTTON - PROMINENT */}
+        <div className="mb-16 text-center">
+          <div 
+            onClick={() => navigate('/emergency-ai')}
+            className="relative inline-block cursor-pointer group"
+          >
+            <div className="absolute -inset-4 bg-gradient-to-r from-red-600 via-red-500 to-orange-500 rounded-3xl blur-xl opacity-75 group-hover:opacity-100 animate-pulse"></div>
+            <button className="relative bg-gradient-to-r from-red-600 to-red-700 text-white px-16 py-8 rounded-3xl text-3xl font-bold shadow-2xl transform transition-all hover:scale-105 active:scale-95">
+              <div className="flex items-center gap-4">
+                <AlertCircle className="w-12 h-12 animate-bounce" />
+                <div className="text-left">
+                  <div className="text-4xl font-black">🚨 EMERGENCY HELP</div>
+                  <div className="text-sm text-red-100 font-normal mt-1">AI will find nearest open garage instantly</div>
+                </div>
+              </div>
+            </button>
+          </div>
+          <p className="text-gray-600 mt-6 text-lg">Click if your vehicle is stuck or broken down right now</p>
+        </div>
+
         <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
             Need Vehicle Help?

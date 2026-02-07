@@ -4,6 +4,8 @@ import { AppProvider } from "./context/AppContext";
 import GarageSathi from "./components/GarageSathi";
 import HomePage from "./pages/HomePage";
 import EmergencyPage from "./pages/EmergencyPage";
+import AIProcessingScreen from "./pages/AIProcessingScreen";
+import EmergencyResultScreen from "./pages/EmergencyResultScreen";
 import ServiceRequestPage from "./pages/ServiceRequestPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import AdminPage from "./pages/AdminPage";
@@ -24,7 +26,14 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            
+            {/* AI Emergency Flow - NEW HACKATHON FEATURE */}
+            <Route path="/emergency-ai" element={<AIProcessingScreen />} />
+            <Route path="/emergency-result" element={<EmergencyResultScreen />} />
+            
+            {/* Original Emergency */}
             <Route path="/emergency" element={<EmergencyPage />} />
+            
             <Route path="/service-request" element={<ServiceRequestPage />} />
             <Route path="/confirmation" element={<ConfirmationPage />} />
             <Route path="/admin" element={<AdminPage />} />
@@ -43,7 +52,7 @@ function App() {
             <Route path="/dashboard/*" element={<MainDashboard />} />
           </Routes>
           
-          {/* Global AI Assistant - appears on all pages */}
+          {/* Global AI Assistant - appears on all pages except AI processing screens */}
           <GarageSathi />
         </BrowserRouter>
       </div>
